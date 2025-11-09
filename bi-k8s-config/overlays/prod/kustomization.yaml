@@ -1,0 +1,50 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: bi-course-prod
+
+namePrefix: prod-
+
+commonLabels:
+  environment: prod
+
+bases:
+  - ../../base
+
+configMapGenerator:
+  - name: spring-config
+    literals:
+      - profile=prod
+  - name: postgres-config
+    literals:
+      - url=jdbc:postgresql://postgres:5432/bi_course_prod
+  - name: mongodb-config
+    literals:
+      - uri=mongodb://mongodb:27017/bi_course_prod
+  - name: kafka-config
+    literals:
+      - bootstrap-servers=kafka:9092
+  - name: redis-config
+    literals:
+      - host=redis
+
+secretGenerator:
+  - name: postgres-credentials
+    literals:
+      - username=prod_user
+      - password=CHANGE_ME_PROD_PASSWORD
+  - name: mongodb-credentials
+    literals:
+      - username=prod_user
+      - password=CHANGE_ME_PROD_PASSWORD
+
+patchesStrategicMerge:
+  - deployments-patch.yaml
+
+replicas:
+  - name: auth-service
+    count: 3
+  - name: course-command-service
+    count: 3
+  - name: course-query-service
+    count: 3

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shared-config
+data:
+  SPRING_PROFILES_ACTIVE: docker
+  KAFKA_BOOTSTRAP_SERVERS: dev-kafka:9092
+  POSTGRES_HOST: dev-postgres
+  POSTGRES_DB: bi_course_db
+  MONGO_HOST: dev-mongodb
+  MONGO_DB: bi_course_db
+  REDIS_HOST: dev-redis

@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: course-query-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: course-query-service
+  template:
+    metadata:
+      labels:
+        app: course-query-service
+    spec:
+      containers:
+        - name: course-query-service
+          image: bi-course-query-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8082
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: shared-config
+                  key: SPRING_PROFILES_ACTIVE
+            - name: SPRING_DATA_MONGODB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-config
+                  key: host
+            - name: SPRING_DATA_MONGODB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-config
+                  key: port
+            - name: SPRING_DATA_MONGODB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-config
+                  key: database
+            - name: SPRING_DATA_MONGODB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: MONGO_USER
+            - name: SPRING_DATA_MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: MONGO_PASSWORD
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: shared-config
+                  key: KAFKA_BOOTSTRAP_SERVERS
+            - name: SPRING_REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: shared-config
+                  key: REDIS_HOST
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: course-query-service
+spec:
+  selector:
+    app: course-query-service
+  ports:
+    - port: 80
+      targetPort: 8082
+  type: ClusterIP

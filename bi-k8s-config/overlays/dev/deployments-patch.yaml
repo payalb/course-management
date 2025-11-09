@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: course-ui
+spec:
+  template:
+    spec:
+      containers:
+        - name: course-ui
+          env:
+            - name: REACT_APP_API_URL
+              value: "http://localhost:8080"

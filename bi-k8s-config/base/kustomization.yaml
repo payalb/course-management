@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - namespace.yaml
+  - configmaps/config.yaml
+  - configmaps/configmaps.yaml
+  - secrets/
+  - deployments/infrastructure.yaml
+  - services/api-gateway-service.yaml
+  - services/auth-service.yaml
+  - services/course-command-service.yaml
+  - services/course-query-service.yaml
+  - services/course-ui-service.yaml
+  - services/infrastructure-services.yaml
+  - services/zookeeper-service.yaml
+  - storage/
+
+namespace: bi-course
