@@ -69,7 +69,9 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     }
 
     private void validateToken(String token) {
-        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
+        // Decode base64 secret key for JWT
+        byte[] keyBytes = java.util.Base64.getDecoder().decode(secretKey);
+        SecretKey key = Keys.hmacShaKeyFor(keyBytes);
         Claims claims = Jwts.parser()
             .verifyWith(key)
             .build()
