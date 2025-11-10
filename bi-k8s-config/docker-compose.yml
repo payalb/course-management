@@ -47,7 +47,11 @@ services:
     networks:
       - bi-network
     healthcheck:
-      test: ["CMD-SHELL", "kafka-broker-api-versions --bootstrap-server localhost:9092 || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "kafka-broker-api-versions --bootstrap-server localhost:9092 || exit 1",
+        ]
       interval: 10s
       timeout: 10s
       retries: 5
@@ -68,7 +72,19 @@ services:
     networks:
       - bi-network
     healthcheck:
-      test: ["CMD", "mongosh", "--username", "mongouser", "--password", "mongopassword", "--authenticationDatabase", "admin", "--eval", "db.adminCommand('ping')"]
+      test:
+        [
+          "CMD",
+          "mongosh",
+          "--username",
+          "mongouser",
+          "--password",
+          "mongopassword",
+          "--authenticationDatabase",
+          "admin",
+          "--eval",
+          "db.adminCommand('ping')",
+        ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -211,7 +227,7 @@ services:
       context: ../course-react
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_BASE_URL: http://localhost:8080
+        REACT_APP_API_BASE_URL: http://localhost:30090
     container_name: bi-course-react
     depends_on:
       - api-gateway-service

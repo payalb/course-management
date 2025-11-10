@@ -4,7 +4,6 @@ FROM bi-parent-rdbms-base:latest AS build
 # Now build the service
 WORKDIR /app
 COPY bi-course-command-service/pom.xml .
-RUN mvn dependency:go-offline -B
 
 COPY bi-course-command-service/src ./src
 RUN mvn clean package -DskipTests

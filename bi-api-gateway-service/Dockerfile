@@ -4,7 +4,6 @@ FROM bi-parent-base:latest AS build
 # Now build the gateway service
 WORKDIR /app
 COPY bi-api-gateway-service/pom.xml .
-RUN mvn dependency:go-offline -B
 
 COPY bi-api-gateway-service/src ./src
 RUN mvn clean package -DskipTests

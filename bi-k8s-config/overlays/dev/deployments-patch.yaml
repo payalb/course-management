@@ -9,4 +9,4 @@ spec:
         - name: course-ui
           env:
             - name: REACT_APP_API_URL
-              value: "http://localhost:8080"
+              value: "http://localhost:30090"

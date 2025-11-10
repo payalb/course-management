@@ -4,7 +4,6 @@ FROM bi-parent-base:latest AS build
 # Now build the service
 WORKDIR /app
 COPY bi-course-query-service/pom.xml .
-RUN mvn dependency:go-offline -B
 
 COPY bi-course-query-service/src ./src
 RUN mvn clean package -DskipTests

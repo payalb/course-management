@@ -12,12 +12,13 @@
     <name>API Gateway Service</name>
     <description>Spring Cloud Gateway for routing and authentication</description>
 
-    <parent>
-        <groupId>com.bi.java</groupId>
-        <artifactId>bi-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../bi-parent</relativePath>
-    </parent>
+
+       <parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.5.4</version>
+	</parent>
+
 
     <properties>
         <spring-boot.version>3.5.4</spring-boot.version>
