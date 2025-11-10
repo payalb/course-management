@@ -23,7 +23,7 @@ spring:
       routes:
         # Auth Service Route
         - id: auth-service
-          uri: http://bi-auth-service
+          uri: http://dev-auth-service
           predicates:
             - Path=/api/v1/auth/**
           filters:
@@ -31,7 +31,7 @@ spring:
 
         # Course Command Service Route (Write operations)
         - id: course-command-service
-          uri: http://bi-course-command-service
+          uri: http://dev-course-command-service
           predicates:
             - Path=/api/v1/courses/**
             - Method=POST,PUT,DELETE
@@ -41,7 +41,7 @@ spring:
 
         # Course Query Service Route (Read operations)
         - id: course-query-service
-          uri: http://bi-course-query-service
+          uri: http://dev-course-query-service
           predicates:
             - Path=/api/v1/courses-query/**
             - Method=GET
@@ -51,7 +51,7 @@ spring:
 
         # Enrollment Service Route
         - id: enrollment-service
-          uri: http://bi-enrollment-service
+          uri: http://dev-enrollment-service
           predicates:
             - Path=/api/v1/enrollments/**
           filters:
